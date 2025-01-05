@@ -1,0 +1,167 @@
+﻿@page "/dashboard"
+@using Blazored.LocalStorage
+@using PersonalExpensesTracker.Models
+@using PersonalExpensesTracker.Services
+@inject TransactionService TransactionService
+@inject DebtService DebtService
+@inject ILocalStorageService LocalStorage
+
+<div class="d-flex justify-content-between mb-3">
+    <h3>Dashboard</h3>
+    <button class="btn btn-secondary" @onclick="OnFilterByDateClick">Filter by Date</button>
+</div>
+
+<div class="row mt-3">
+    <!-- Total Balance -->
+    <div class="col-md-3">
+        <div class="card custom-card">
+            <div class="card-body text-center">
+                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalBalance</p>
+                <h6>Total Balance</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Credit -->
+    <div class="col-md-3">
+        <div class="card custom-card">
+            <div class="card-body text-center">
+                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalCredit</p>
+                <h6>Total Credit</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Debit -->
+    <div class="col-md-3">
+        <div class="card custom-card">
+            <div class="card-body text-center">
+                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalDebit</p>
+                <h6>Total Debit</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Debt -->
+    <div class="col-md-3">
+        <div class="card custom-card">
+            <div class="card-body text-center">
+                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalDebt</p>
+                <h6>Total Debt</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <!-- Total Number of Transactions -->
+    <div class="col-md-3">
+        <div class="card custom-card">
+            <div class="card-body text-center">
+                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalTransactions</p>
+                <h6>Total Transactions</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cleared Debt -->
+    <div class="col-md-3">
+        <div class="card custom-card">
+            <div class="card-body text-center">
+                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@clearedDebt</p>
+                <h6>Cleared Debt</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remaining Debt -->
+    <div class="col-md-3">
+        <div class="card custom-card">
+            <div class="card-body text-center">
+                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@remainingDebt</p>
+                <h6>Remaining Debt</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="mt-4">Pending Debts</h4>
+
+<table class="table mt-3" style="font-size: 1rem;">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Source</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var debt in pendingDebts)
+        {
+            <tr>
+                <td>@debt.SNo</td>
+                <td>@debt.Source</td>
+                <td>@debt.Amount.ToString("C")</td>
+                <td>@(debt.DueDate.HasValue ? debt.DueDate.Value.ToString("yyyy-MM-dd") : "N/A")</td>
+                <td>
+                    <button class="btn btn-primary" disabled>Pay</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private decimal totalCredit;
+    private decimal totalDebit;
+    private decimal totalDebt;
+    private decimal totalBalance;
+    private int totalTransactions;
+    private decimal clearedDebt;
+    private decimal remainingDebt;
+    private List<PendingDebt> pendingDebts = new List<PendingDebt>();
+
+    protected override async Task OnInitializedAsync()
+    {
+  
+        var transactions = await TransactionService.GetTransactionsAsync();
+        totalCredit = transactions.Where(t => t.TransactionType?.ToLower() == "credit").Sum(t => t.Amount);
+        totalDebit = transactions.Where(t => t.TransactionType?.ToLower() == "debit").Sum(t => t.Amount);
+        totalTransactions = transactions.Count();
+
+        
+        totalBalance = totalCredit - totalDebit;
+
+
+        var debts = await DebtService.GetDebtsAsync();
+        totalDebt = debts.Sum(d => d.Amount);
+
+       
+        clearedDebt = debts.Where(d => d.Status == "Cleared").Sum(d => d.Amount);
+        remainingDebt = totalDebt - clearedDebt;
+
+       
+        pendingDebts = new List<PendingDebt>
+        {
+            new PendingDebt { SNo = 1, Source = "Bank Loan", Amount = 1500.50m, DueDate = DateTime.Now.AddDays(5) },
+            new PendingDebt { SNo = 2, Source = "Credit Card", Amount = 800.75m, DueDate = DateTime.Now.AddDays(10) },
+            new PendingDebt { SNo = 3, Source = "Friend Borrowing", Amount = 200.00m, DueDate = DateTime.Now.AddDays(15) },
+        };
+    }
+
+    private void OnFilterByDateClick()
+    {
+        
+        Console.WriteLine("Filter by Date clicked");
+    }
+
+    private class PendingDebt
+    {
+        public int SNo { get; set; }
+        public string Source { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime? DueDate { get; set; }
+    }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "Title": "Health",
+    "Amount": 2332.0,
+    "TransactionType": "credit",
+    "Category": "bills",
+    "Date": "2024-12-30T00:00:00",
+    "Note": "Healthcost\n"
+  },
+  {
+    "Title": "Food",
+    "Amount": 1000.0,
+    "TransactionType": "debit",
+    "Category": "food",
+    "Date": "2025-01-01T00:00:00",
+    "Note": null
+  },
+  {
+    "Title": "Health",
+    "Amount": 0.0,
+    "TransactionType": "credit",
+    "Category": "food",
+    "Date": "0001-01-01T00:00:00",
+    "Note": null
+  }
+]

@@ -1,0 +1,65 @@
+﻿@page "/debthistory"
+@using PersonalExpensesTracker.Models
+@using PersonalExpensesTracker.Services
+@inject DebtService DebtService
+@inject TransactionService TransactionService
+
+<div class="d-flex justify-content-between mb-3">
+    <h3>Debt Transaction History</h3>
+    <button class="btn btn-primary" @onclick="OnAddDebtClick">Add Debt</button>
+</div>
+
+@if (debts != null && debts.Any())
+{
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Source</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var debt in debts)
+            {
+                    <tr>
+                        <td>@(debts.IndexOf(debt) + 1)</td>
+                        <td>@debt.DebtSource</td>
+                        <td>@debt.Amount</td>
+                        <td>
+                        @(debt.DueDate != null && debt.DueDate > DateTime.MinValue
+                                ? debt.DueDate.Value.ToString("dd/MM/yyyy")
+                                : "N/A")
+                        </td>
+                        <td>@debt.Status</td>
+                        <td>
+                            <button class="btn btn-success">Clear</button>
+                        </td>
+                    </tr>
+            }
+            </tbody>
+        </table>
+}
+else
+{
+        <p>No debt transactions found.</p>
+}
+
+@code {
+    private List<Debt> debts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch debt data on initialization
+        debts = await DebtService.GetDebtsAsync();
+    }
+
+    private void OnAddDebtClick()
+    {
+        // Logic for adding a new debt can be implemented here
+        Console.WriteLine("Add Debt button clicked");
+    }
+}

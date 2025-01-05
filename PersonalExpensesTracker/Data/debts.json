@@ -1,0 +1,10 @@
+[
+  {
+    "DebtSource": "Expenses",
+    "DueDate": "2025-11-02T00:00:00",
+    "Amount": 1500.0,
+    "Status": null,
+    "DateCreated": "2025-01-05T12:11:21.266779+05:45",
+    "Note": null
+  }
+]

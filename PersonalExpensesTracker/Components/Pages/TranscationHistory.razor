@@ -1,0 +1,98 @@
+﻿@page "/transactionhistory"
+@using PersonalExpensesTracker.Models
+@using PersonalExpensesTracker.Services
+@inject TransactionService TransactionService
+
+<div class="d-flex justify-content-between mb-1">
+   
+    <input type="text" class="form-control w-50" placeholder="Search by Title" @bind="searchTitle" />
+
+    
+    <select class="form-control w-auto" @bind="selectedFilter" style="background-color: #007bff; color: white;">
+        <option value="">Filter by</option>
+        <option value="Type">Type</option>
+        <option value="Date">Date</option>
+        <option value="Category">Category</option>
+        
+    </select>
+
+
+</div>
+
+<div class="border p-3 rounded">
+    
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Transaction History</h3>
+        <div>
+            <button class="btn btn-secondary me-2">Amount</button>
+            <button class="btn btn-secondary">Date</button>
+        </div>
+    </div>
+
+    @if (transactions == null || transactions.Count == 0)
+    {
+        <p>No transaction data found.</p>
+    }
+    else
+    {
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transaction in filteredTransactions)
+                {
+                    <tr>
+                        <td>@transaction.Title</td>
+                        <td>@transaction.Amount</td>
+                        <td>@transaction.TransactionType</td>
+                        <td>@transaction.Category</td>
+                        <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
+                        <td>@transaction.Note</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private List<Transaction> transactions;
+    private string searchTitle = "";
+    private string selectedFilter = "";
+    private List<Transaction> filteredTransactions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        transactions = await TransactionService.GetTransactionsAsync();
+        filteredTransactions = transactions;
+    }
+
+    
+    private void FilterTransactions()
+    {
+        filteredTransactions = transactions
+            .Where(t => (string.IsNullOrEmpty(searchTitle) || t.Title.Contains(searchTitle, StringComparison.OrdinalIgnoreCase)) &&
+                        (string.IsNullOrEmpty(selectedFilter) || t.Category.Equals(selectedFilter, StringComparison.OrdinalIgnoreCase)))
+            .ToList();
+    }
+
+   
+    private void OnSearchTitleChanged()
+    {
+        FilterTransactions();
+    }
+
+    private void OnSelectedFilterChanged()
+    {
+        FilterTransactions();
+    }
+}
+
