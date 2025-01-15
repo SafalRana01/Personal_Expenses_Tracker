@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "X4ak6f56LH76B+AwRTG4Cjx/Xd8YmFeACDr/OpznhA8=",
+  "Hash": "hOaALRYXSxQ+SJXA9s04AbBGUpIharh7MmhLgOgiBpM=",
   "Source": "PersonalExpensesTracker",
   "BasePath": "/",
   "Mode": "Root",
@@ -10,17 +10,17 @@
     {
       "Name": "PersonalExpensesTracker\\wwwroot",
       "Source": "PersonalExpensesTracker",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
       "BasePath": "/",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\PersonalExpensesTracker.styles.css",
+      "Identity": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\PersonalExpensesTracker.styles.css",
       "SourceId": "PersonalExpensesTracker",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\",
       "BasePath": "/",
       "RelativePath": "PersonalExpensesTracker.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\PersonalExpensesTracker.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\PersonalExpensesTracker.styles.css"
     },
     {
-      "Identity": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\projectbundle\\PersonalExpensesTracker.bundle.scp.css",
+      "Identity": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\projectbundle\\PersonalExpensesTracker.bundle.scp.css",
       "SourceId": "PersonalExpensesTracker",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\projectbundle\\",
       "BasePath": "/",
       "RelativePath": "PersonalExpensesTracker.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\projectbundle\\PersonalExpensesTracker.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\projectbundle\\PersonalExpensesTracker.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\app.css",
+      "Identity": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\app.css",
       "SourceId": "PersonalExpensesTracker",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "css/app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\css\\app.css"
     },
     {
-      "Identity": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "PersonalExpensesTracker",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "PersonalExpensesTracker",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\NavMenu.css",
+      "Identity": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\NavMenu.css",
       "SourceId": "PersonalExpensesTracker",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "css/NavMenu.css",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\css\\NavMenu.css"
     },
     {
-      "Identity": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\favicon.png",
       "SourceId": "PersonalExpensesTracker",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.png"
     },
     {
-      "Identity": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\index.html",
+      "Identity": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\index.html",
       "SourceId": "PersonalExpensesTracker",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\",
       "BasePath": "/",
       "RelativePath": "index.html",
       "AssetKind": "All",

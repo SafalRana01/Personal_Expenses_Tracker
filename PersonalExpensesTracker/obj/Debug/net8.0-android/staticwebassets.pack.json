@@ -1,31 +1,31 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-android\\scopedcss\\bundle\\PersonalExpensesTracker.styles.css",
+      "Id": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\Debug\\net8.0-android\\scopedcss\\bundle\\PersonalExpensesTracker.styles.css",
       "PackagePath": "staticwebassets\\PersonalExpensesTracker.styles.css"
     },
     {
-      "Id": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\NavMenu.css",
+      "Id": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\NavMenu.css",
       "PackagePath": "staticwebassets\\css\\NavMenu.css"
     },
     {
-      "Id": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\app.css",
+      "Id": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\app.css",
       "PackagePath": "staticwebassets\\css\\app.css"
     },
     {
-      "Id": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\favicon.png",
+      "Id": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
-      "Id": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\index.html",
+      "Id": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {

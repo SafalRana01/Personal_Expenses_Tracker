@@ -75926,11 +75926,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\PersonalExpensesTracker.csproj",
+      "projectUniqueName": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\PersonalExpensesTracker.csproj",
       "projectName": "PersonalExpensesTracker",
-      "projectPath": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\PersonalExpensesTracker.csproj",
+      "projectPath": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\PersonalExpensesTracker.csproj",
       "packagesPath": "C:\\Users\\Safal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\",
+      "outputPath": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [

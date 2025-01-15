@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hb1bYVi1UtQ=",
+  "dgSpecHash": "SniKm3FmDbY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Safal\\Downloads\\PersonalExpensesTracker\\PersonalExpensesTracker\\PersonalExpensesTracker.csproj",
+  "projectFilePath": "C:\\Users\\Safal\\Downloads\\Application Development\\PersonalExpensesTracker\\PersonalExpensesTracker\\PersonalExpensesTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Safal\\.nuget\\packages\\blazored.localstorage\\4.5.0\\blazored.localstorage.4.5.0.nupkg.sha512",
     "C:\\Users\\Safal\\.nuget\\packages\\googlegson\\2.10.1.4\\googlegson.2.10.1.4.nupkg.sha512",
