@@ -1,44 +1,55 @@
 ﻿@inherits LayoutComponentBase
 
-
 <div class="navigation">
     <ul>
         <li>
-            <NavLink href="" class="nav-link">
+            <NavLink href="#" class="nav-link">
+                <span class="icon"><ion-icon name="wallet-outline"></ion-icon></span>
                 <span class="title">Personal Expenses Tracker</span>
             </NavLink>
         </li>
         <li class="active">
             <NavLink href="dashboard" class="nav-link">
+                <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                 <span class="title">Dashboard</span>
             </NavLink>
         </li>
         <li>
             <NavLink href="transaction" class="nav-link">
+                <span class="icon"><ion-icon name="add-outline"></ion-icon></span>
                 <span class="title">Add Transactions</span>
             </NavLink>
         </li>
-        <li >
+        <li>
             <NavLink href="transactionhistory" class="nav-link">
+                <div class="icon"><ion-icon name="time-outline"></ion-icon></div>
                 <span class="title">Transaction Record</span>
             </NavLink>
         </li>
         <li>
             <NavLink href="debthistory" class="nav-link">
+                <div class="icon"><ion-icon name="cash-outline"></ion-icon></div>
                 <span class="title">Debt</span>
             </NavLink>
         </li>
         <li>
             <NavLink href="categories" class="nav-link">
+                <div class="icon"><ion-icon name="apps-outline"></ion-icon></div>
                 <span class="title">Categories</span>
             </NavLink>
         </li>
         <li>
             <NavLink href="logout" class="nav-link">
+                <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
                 <span class="title">Logout</span>
             </NavLink>
         </li>
     </ul>
 </div>
+
+@* External scripts for ionicons *@
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 
 <link href="css/NavMenu.css" rel="stylesheet" />

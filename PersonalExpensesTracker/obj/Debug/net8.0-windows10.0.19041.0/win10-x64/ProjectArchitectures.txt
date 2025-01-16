@@ -1,1 +1,1 @@
-C:\Users\Safal\source\repos\PersonalExpensesTracker\PersonalExpensesTracker\PersonalExpensesTracker.csproj;x64
+C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\PersonalExpensesTracker.csproj;x64
