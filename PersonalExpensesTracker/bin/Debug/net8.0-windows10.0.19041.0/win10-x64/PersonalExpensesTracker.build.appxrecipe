@@ -820,6 +820,9 @@
     <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Layout\NavMenu.razor.css">
       <PackagePath>Components\Layout\NavMenu.razor.css</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Pages\Login.razor.css">
+      <PackagePath>Components\Pages\Login.razor.css</PackagePath>
+    </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
     <ResolvedSDKReference Include="C:\Users\Safal\.nuget\packages\microsoft.windowsappsdk\1.5.240627000\buildTransitive\..\tools\MSIX\win10-x86\Microsoft.WindowsAppRuntime.1.5.msix">

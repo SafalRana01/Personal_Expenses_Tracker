@@ -1,5 +1,6 @@
 Components\Layout\MainLayout.razor.css
 Components\Layout\NavMenu.razor.css
+Components\Pages\Login.razor.css
 Data\debts.json
 Data\transaction.json
 OpenSans-Regular.ttf

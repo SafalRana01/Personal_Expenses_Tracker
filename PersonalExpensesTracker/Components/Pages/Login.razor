@@ -6,42 +6,52 @@
 @inject ILocalStorageService LocalStorage
 
 
-<h3>Login</h3>
+<div class="body">
+    <div class="login-container">
+        <div class="left-panel">
+            <h1 class="tracker-title">Personal Expenses Tracker</h1>
+            <p class="slogan">
+                Plan <span>better</span>,<br />
+                Spend <span>smarter</span>,<br />
+                Stay <span>debt-free</span>.
+            </p>
+            <p class="login-prompt">Login to access your dashboard</p>
+        </div>
+        <div class="right-panel">
+            <h2 class="login-title">Login</h2>
+            <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
-<EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+                <div class="input-field">
+                    <InputText id="username" class="form-control" placeholder="Username" @bind-Value="loginModel.Username" />
+                    <i class="icon-user"></i>
+                </div>
+                <div class="input-field">
+                    <InputText id="password" type="password" class="form-control" placeholder="Password" @bind-Value="loginModel.Password" />
+                    <i class="icon-lock"></i>
+                </div>
+                <div class="input-field">
+                    <select id="currency" class="form-control" @bind="loginModel.PreferredCurrency">
+                        <option value="" disabled selected>Preferred Currency</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="NPR">NPR</option>
+                    </select>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </EditForm>
 
-    <div class="form-group">
-        <label for="username">Username</label>
-        <InputText id="username" class="form-control" @bind-Value="loginModel.Username" required />
+            @if (loginFailed)
+            {
+                <div class="alert alert-danger mt-3">
+                    Invalid username or password.
+                </div>
+            }
+        </div>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <InputText id="password" type="password" class="form-control" @bind-Value="loginModel.Password" required />
-    </div>
-    <div class="form-group">
-        <label for="currency">Preferred Currency</label>
-        <select id="currency" class="form-control" @bind="loginModel.PreferredCurrency" required>
-            <option value="">Select Currency</option>
-            <option value="USD">Dollar (USD)</option>
-            <option value="GBP">Pound (GBP)</option>
-            <option value="INR">Rupees (INR)</option>
-            <option value="EUR">Euro (EUR)</option>
-            <!-- Add more currencies as needed -->
-        </select>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Login</button>
-    </div>
-</EditForm>
+</div>
 
-@if (loginFailed)
-{
-    <div class="alert alert-danger mt-3">
-        Invalid username or password.
-    </div>
-}
 
 @code {
     private LoginModel loginModel = new LoginModel();
@@ -49,25 +59,20 @@
 
     private async Task HandleLogin()
     {
-        
+        // Hardcoded username and password validation
         if (loginModel.Username == "admin" && loginModel.Password == "password123")
         {
-            
+            // Save the preferred currency in local storage
             await LocalStorage.SetItemAsync("preferredCurrency", loginModel.PreferredCurrency);
 
-            
+            // Redirect to the dashboard
             Navigation.NavigateTo("/dashboard");
         }
         else
         {
-            loginFailed = true; 
+            loginFailed = true; // Show error if login failed
         }
     }
 
-    public class LoginModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string PreferredCurrency { get; set; }
-    }
+
 }
