@@ -820,6 +820,9 @@
     <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Layout\NavMenu.razor.css">
       <PackagePath>Components\Layout\NavMenu.razor.css</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Pages\AddTranscation.razor.css">
+      <PackagePath>Components\Pages\AddTranscation.razor.css</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Pages\Login.razor.css">
       <PackagePath>Components\Pages\Login.razor.css</PackagePath>
     </AppxPackagedFile>

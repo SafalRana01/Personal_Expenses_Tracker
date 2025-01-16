@@ -4,42 +4,38 @@
 @inject TransactionService TransactionService
 @inject DebtService DebtService
 
-<h1>Add Transaction</h1>
+<div class="container">
+    <div class="header">
+        <h1 class="title">Add Transaction</h1>
+    </div>
 
-<EditForm Model="@transaction" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+    <EditForm Model="@transaction" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <!-- Title and Amount Row -->
-    <div class="row">
-        <div class="col-md-6">
+        <div class="form">
+            <!-- Title and Amount -->
             <div class="form-group">
                 <label for="title">Title</label>
                 <InputText id="title" class="form-control" @bind-Value="transaction.Title" placeholder="Enter Title" required />
             </div>
-        </div>
-        <div class="col-md-6">
+
             <div class="form-group">
                 <label for="amount">Amount</label>
                 <InputNumber id="amount" class="form-control" @bind-Value="transaction.Amount" placeholder="Enter Amount" required />
             </div>
-        </div>
-    </div>
 
-    <!-- Transaction Type and Category Row -->
-    <div class="row">
-        <div class="col-md-6">
+            <!-- Transaction Type and Category -->
             <div class="form-group">
-                <label for="transactionType">Transaction Type</label>
-                <InputSelect id="transactionType" class="form-control" @bind-Value="transaction.TransactionType" required>
+                <label for="transaction-type">Transaction Type</label>
+                <InputSelect id="transaction-type" class="form-control" @bind-Value="transaction.TransactionType" required>
                     <option value="">Choose Transaction Type</option>
                     <option value="credit">Credit</option>
                     <option value="debit">Debit</option>
                     <option value="debt">Debt</option>
                 </InputSelect>
             </div>
-        </div>
-        <div class="col-md-6">
+
             <div class="form-group">
                 <label for="category">Category</label>
                 <InputSelect id="category" class="form-control" @bind-Value="transaction.Category" required>
@@ -49,66 +45,84 @@
                     <option value="bills">Bills</option>
                 </InputSelect>
             </div>
-        </div>
-    </div>
 
-    <!-- Note and Transaction Date Row -->
-    <div class="row">
-        <div class="col-md-6">
+            <!-- Note and Transaction Date -->
             <div class="form-group">
                 <label for="note">Note</label>
-                <InputTextArea id="note" class="form-control" @bind-Value="transaction.Note" placeholder="Enter Details of Transaction" rows="4"></InputTextArea>
+                <InputTextArea id="note" class="form-control" @bind-Value="transaction.Note" rows="4" placeholder="Enter Details of Transaction"></InputTextArea>
             </div>
-        </div>
-        <div class="col-md-6">
+
             <div class="form-group">
-                <label for="date">Transaction Date</label>
-                <InputDate id="date" class="form-control" @bind-Value="transaction.Date" required />
+                <label for="transaction-date">Transaction Date</label>
+                <InputDate id="transaction-date" class="form-control" @bind-Value="transaction.Date" required />
+            </div>
+
+            <!-- Debt Fields -->
+            @if (transaction.TransactionType == "debt")
+            {
+                <div class="form-group">
+                    <label for="debt-source">Debt Source</label>
+                    <InputText id="debt-source" class="form-control" @bind-Value="debt.DebtSource" placeholder="Enter Debt Source" />
+                </div>
+
+                <div class="form-group">
+                    <label for="debt-due-date">Debt Due Date</label>
+                    <InputDate id="debt-due-date" class="form-control" @bind-Value="debt.DueDate" />
+                </div>
+            }
+
+            <!-- Error Message -->
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">
+                    @errorMessage
+                </div>
+            }
+
+            <!-- Save Button -->
+            <div class="form-group full-width">
+                <button type="submit" class="btn" style="background-color: #F57C00; color: white;">Save Transaction</button>
             </div>
         </div>
-    </div>
-
-    <!-- Debt Fields when Debt is Selected -->
-    @if (transaction.TransactionType == "debt")
-    {
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="debtSource">Debt Source</label>
-                    <InputText id="debtSource" class="form-control" @bind-Value="debt.DebtSource" placeholder="Enter Debt Source" />
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="dueDate">Debt Due Date</label>
-                    <InputDate id="dueDate" class="form-control" @bind-Value="debt.DueDate" placeholder="Enter Due Date" />
-                </div>
-            </div>
-        </div>
-    }
-
-    <!-- Save Button with Margin and Custom Color -->
-    <div class="mt-4">
-        <button type="submit" class="btn" style="background-color: #F57C00; color: white;">Save Transaction</button>
-    </div>
-</EditForm>
+    </EditForm>
+</div>
 
 @code {
     private Transaction transaction = new Transaction();
     private Debt debt = new Debt();
+    private string errorMessage;
 
     private async Task HandleValidSubmit()
     {
+        errorMessage = string.Empty; // Clear previous error message
+
         if (transaction.TransactionType == "debt")
         {
+            // Save debt transaction
             debt.Amount = transaction.Amount;
             debt.DateCreated = DateTime.Now;
             debt.Note = transaction.Note;
             await DebtService.SaveDebtAsync(debt);
         }
+        else if (transaction.TransactionType == "debit")
+        {
+            // Check sufficient balance for debit transaction
+            var isDebitSuccessful = await TransactionService.PerformDebitTransactionAsync(
+                transaction.Amount,
+                transaction.Title,
+                transaction.Note);
+
+            if (!isDebitSuccessful)
+            {
+                // Set error message to display on the UI
+                errorMessage = "Transaction failed due to insufficient balance.";
+                return;
+            }
+        }
         else
         {
-            await TransactionService.SaveTransactionAsync(transaction);
+            // Save credit transaction
+            await TransactionService.AddTransactionAsync(transaction);
         }
 
         // Reset form
