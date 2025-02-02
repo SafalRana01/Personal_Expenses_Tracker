@@ -1,16 +1,14 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using PersonalExpensesTracker.Models;
 
 namespace PersonalExpensesTracker.Services
 {
+    // Service for managing transactions (adding, retrieving, deleting, etc.)
     public class TransactionService
     {
-        private readonly string _folderPath = Path.Combine("C:\\Users\\Safal\\source\\repos\\ExpenseTracker\\ExpenseTracker\\Data");
+        private readonly string _folderPath = Path.Combine("C:\\Users\\Safal\\source\\repos\\PersonalExpensesTracker\\PersonalExpensesTracker\\Data");
 
-        // Constructor to ensure the 'Data' folder exists
+        // Constructor to ensure the 'Data' folder exists for storing transaction data
         public TransactionService()
         {
             if (!Directory.Exists(_folderPath))
@@ -19,7 +17,7 @@ namespace PersonalExpensesTracker.Services
             }
         }
 
-        // Method to add a new transaction with a unique ID
+        // Adds a new transaction to the list and saves it to a file
         public async Task AddTransactionAsync(Transaction transaction)
         {
             try
@@ -28,7 +26,7 @@ namespace PersonalExpensesTracker.Services
 
                 List<Transaction> transactions = await GetTransactionsAsync();
 
-                // Ensure the transaction has a unique ID
+                // Ensure the transaction has a unique ID if it doesn't have one
                 if (string.IsNullOrEmpty(transaction.Id))
                 {
                     transaction.Id = Guid.NewGuid().ToString();
@@ -47,7 +45,7 @@ namespace PersonalExpensesTracker.Services
             }
         }
 
-        // Method to read all transactions
+        // Retrieves all transactions from the saved file
         public async Task<List<Transaction>> GetTransactionsAsync()
         {
             try
@@ -69,7 +67,7 @@ namespace PersonalExpensesTracker.Services
             }
         }
 
-        // Method to retrieve a transaction by ID
+        // Retrieves a specific transaction by its unique ID
         public async Task<Transaction> GetTransactionByIdAsync(string transactionId)
         {
             try
@@ -91,7 +89,7 @@ namespace PersonalExpensesTracker.Services
             }
         }
 
-        // Method to delete a transaction by ID
+        // Deletes a specific transaction by its ID
         public async Task<bool> DeleteTransactionAsync(string transactionId)
         {
             try
@@ -122,13 +120,14 @@ namespace PersonalExpensesTracker.Services
             }
         }
 
-        // Method to calculate the user's current balance
+        // Calculates the user's current balance by subtracting debits from credits
         public async Task<decimal> GetUserBalanceAsync()
         {
             try
             {
                 var transactions = await GetTransactionsAsync();
 
+                // Summing the amounts of credit and debit transactions
                 decimal creditTotal = transactions
                     .Where(t => t.TransactionType.Equals("credit", StringComparison.OrdinalIgnoreCase))
                     .Sum(t => t.Amount);
@@ -146,7 +145,7 @@ namespace PersonalExpensesTracker.Services
             }
         }
 
-        // Method to perform a debit transaction with balance check
+        // Performs a debit transaction, checking if there is enough balance first
         public async Task<bool> PerformDebitTransactionAsync(decimal amount, string title, string note)
         {
             try
@@ -165,6 +164,7 @@ namespace PersonalExpensesTracker.Services
                     return false;
                 }
 
+                // Creating the debit transaction
                 var transaction = new Transaction
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -175,6 +175,7 @@ namespace PersonalExpensesTracker.Services
                     Note = note
                 };
 
+                // Adding the transaction and saving it
                 await AddTransactionAsync(transaction);
                 Console.WriteLine("Debit transaction successful.");
                 return true;
