@@ -10,7 +10,7 @@ namespace PersonalExpensesTracker.Models
     {
         public int UserId { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; } 
+        public string Password { get; set; }
         public string PreferredCurrency { get; set; }
         public DateTime DateCreated { get; set; }
     }
