@@ -19,6 +19,7 @@ namespace PersonalExpensesTracker
 
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<TransactionService>();
+            builder.Services.AddScoped<CategoryService>();
             builder.Services.AddScoped<DebtService>();
             builder.Services.AddBlazoredLocalStorage();
 
