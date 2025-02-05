@@ -1,0 +1,91 @@
+/* Categories page CSS */
+
+/* Main Container */
+.category-container[b-jvu059o3j6] {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Category Section */
+.category-section[b-jvu059o3j6] {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+}
+
+    .category-section h3[b-jvu059o3j6] {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #ff7600;
+        text-align: center;
+    }
+
+/* Category List */
+.category-list[b-jvu059o3j6] {
+    list-style: none;
+    padding: 0;
+}
+
+    .category-list li[b-jvu059o3j6] {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+        .category-list li:hover[b-jvu059o3j6] {
+            background-color: #f1f1f1;
+        }
+
+/* Add Category Button */
+.add-category-btn[b-jvu059o3j6] {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #ff7600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .add-category-btn:hover[b-jvu059o3j6] {
+        background-color: #e96600;
+    }
+
+/* Modal Styling */
+.modal-dialog[b-jvu059o3j6] {
+    max-width: 400px;
+}
+
+.modal-content[b-jvu059o3j6] {
+    padding: 20px;
+}
+
+.modal-header .close[b-jvu059o3j6] {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.modal-footer .btn-secondary[b-jvu059o3j6] {
+    background-color: #ccc;
+}
+
+.modal-footer .btn-primary[b-jvu059o3j6] {
+    background-color: #ff7600;
+    color: white;
+}
+
+    .modal-footer .btn-primary:hover[b-jvu059o3j6] {
+        background-color: #e96600;
+    }
+

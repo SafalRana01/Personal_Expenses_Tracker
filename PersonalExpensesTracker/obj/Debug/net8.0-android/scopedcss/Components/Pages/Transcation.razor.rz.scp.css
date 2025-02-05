@@ -1,5 +1,5 @@
 /* General Styles */
-body[b-pqbfyw15wo] {
+body[b-tcuaxkld3d] {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     margin: 0;
@@ -8,7 +8,7 @@ body[b-pqbfyw15wo] {
 
 
 /* Container Styles */
-.container[b-pqbfyw15wo] {
+.container[b-tcuaxkld3d] {
     width: 80%;
     max-width: 800px;
     margin: 80px auto 20px auto;
@@ -20,55 +20,55 @@ body[b-pqbfyw15wo] {
 }
 
 /* Header Styles */
-.header[b-pqbfyw15wo] {
+.header[b-tcuaxkld3d] {
     text-align: center;
 }
 
-.title[b-pqbfyw15wo] {
+.title[b-tcuaxkld3d] {
     font-size: 24px;
     color: #f5a623;
     font-weight: bold;
 }
 
 /* Form Styles */
-.form[b-pqbfyw15wo] {
+.form[b-tcuaxkld3d] {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 20px;
 }
 
-.form-group[b-pqbfyw15wo] {
+.form-group[b-tcuaxkld3d] {
     flex: 1 1 calc(50% - 20px);
     display: flex;
     flex-direction: column;
 }
 
-label[b-pqbfyw15wo] {
+label[b-tcuaxkld3d] {
     margin-bottom: 5px;
     font-size: 16px;
     color: #333;
     font-weight: bold;
 }
 
-input[b-pqbfyw15wo], select[b-pqbfyw15wo], textarea[b-pqbfyw15wo] {
+input[b-tcuaxkld3d], select[b-tcuaxkld3d], textarea[b-tcuaxkld3d] {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-textarea[b-pqbfyw15wo] {
+textarea[b-tcuaxkld3d] {
     resize: none;
 }
 
-.form-control[b-pqbfyw15wo] {
+.form-control[b-tcuaxkld3d] {
     width: 100%;
     box-sizing: border-box;
 }
 
 /* Button Styles */
-.btn[b-pqbfyw15wo] {
+.btn[b-tcuaxkld3d] {
     width: 25%; /* Half the current width */
     padding: 15px;
     background-color: #f5a623;
@@ -83,19 +83,19 @@ textarea[b-pqbfyw15wo] {
     display: block; /* Ensure proper centering */
 }
 
-    .btn:hover[b-pqbfyw15wo] {
+    .btn:hover[b-tcuaxkld3d] {
         background-color: #e59620;
     }
 
 /* Full Width Group */
-.full-width[b-pqbfyw15wo] {
+.full-width[b-tcuaxkld3d] {
     flex: 1 1 100%;
     display: flex; /* Ensure proper centering */
     justify-content: center; /* Center horizontally within the container */
 }
 
 /* Alert Styles */
-.alert[b-pqbfyw15wo] {
+.alert[b-tcuaxkld3d] {
     padding: 10px;
     margin-top: 10px;
     border: 1px solid #e57373;
@@ -106,7 +106,7 @@ textarea[b-pqbfyw15wo] {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .form-group[b-pqbfyw15wo] {
+    .form-group[b-tcuaxkld3d] {
         flex: 1 1 100%;
     }
 }

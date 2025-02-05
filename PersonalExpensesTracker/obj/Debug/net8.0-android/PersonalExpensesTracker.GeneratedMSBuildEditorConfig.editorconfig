@@ -93,12 +93,12 @@ build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5y
 build_metadata.AdditionalFiles.RelativePath = 
 build_metadata.AdditionalFiles.CssScope = b-g1wgirmfmm
 
-[C:/Users/Safal/Downloads/Application Development/PersonalExpensesTracker/PersonalExpensesTracker/Components/Pages/AddTranscation.razor]
+[C:/Users/Safal/Downloads/Application Development/PersonalExpensesTracker/PersonalExpensesTracker/Components/Pages/Categories.razor]
 build_metadata.AdditionalFiles.GenKind = 
 build_metadata.AdditionalFiles.ManifestResourceName = 
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRUcmFuc2NhdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXRlZ29yaWVzLnJhem9y
 build_metadata.AdditionalFiles.RelativePath = 
-build_metadata.AdditionalFiles.CssScope = b-pqbfyw15wo
+build_metadata.AdditionalFiles.CssScope = b-jvu059o3j6
 
 [C:/Users/Safal/Downloads/Application Development/PersonalExpensesTracker/PersonalExpensesTracker/Components/Pages/Login.razor]
 build_metadata.AdditionalFiles.GenKind = 
@@ -106,3 +106,10 @@ build_metadata.AdditionalFiles.ManifestResourceName =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2dpbi5yYXpvcg==
 build_metadata.AdditionalFiles.RelativePath = 
 build_metadata.AdditionalFiles.CssScope = b-w7a8h8by7h
+
+[C:/Users/Safal/Downloads/Application Development/PersonalExpensesTracker/PersonalExpensesTracker/Components/Pages/TranscationForm.razor]
+build_metadata.AdditionalFiles.GenKind = 
+build_metadata.AdditionalFiles.ManifestResourceName = 
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUcmFuc2NhdGlvbkZvcm0ucmF6b3I=
+build_metadata.AdditionalFiles.RelativePath = 
+build_metadata.AdditionalFiles.CssScope = b-266r25qour
