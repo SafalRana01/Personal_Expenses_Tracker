@@ -6,87 +6,43 @@
 @inject DebtService DebtService
 @inject ILocalStorageService LocalStorage
 
+<!-- Dashboard Header with Date Range Filters -->
 <div class="d-flex justify-content-between mb-3">
     <h3>Dashboard</h3>
-    <button class="btn btn-secondary" @onclick="OnFilterByDateClick">Filter by Date</button>
+    <div class="d-flex align-items-center">
+        <!-- Date Range Pickers for Filtering -->
+        <input type="date" class="form-control me-2" @bind="startDate" />
+        <input type="date" class="form-control me-2" @bind="endDate" />
+        <button class="btn btn-primary" @onclick="OnFilterByDateClick">Filter by Date</button>
+    </div>
 </div>
 
+<!-- Displaying an Error Message if There is Any -->
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Dashboard Metrics Display -->
 <div class="row mt-3">
-    <!-- Total Balance -->
-    <div class="col-md-3">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalBalance</p>
-                <h6>Total Balance</h6>
+    @foreach (var item in dashboardItems)
+    {
+        <div class="col-md-3 p-2">
+            <div class="card custom-card shadow-sm" style="margin: 10px;">
+                <div class="card-body text-center">
+                    <p style="font-size: 1.5rem; font-family: 'Roboto Flex', sans-serif;">@item.Value</p>
+                    <h6>@item.Title</h6>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Total Credit -->
-    <div class="col-md-3">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalCredit</p>
-                <h6>Total Credit</h6>
-            </div>
-        </div>
-    </div>
-
-    <!-- Total Debit -->
-    <div class="col-md-3">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalDebit</p>
-                <h6>Total Debit</h6>
-            </div>
-        </div>
-    </div>
-
-    <!-- Total Debt -->
-    <div class="col-md-3">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalDebt</p>
-                <h6>Total Debt</h6>
-            </div>
-        </div>
-    </div>
+    }
 </div>
 
-<div class="row mt-3">
-    <!-- Total Number of Transactions -->
-    <div class="col-md-3">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@totalTransactions</p>
-                <h6>Total Transactions</h6>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cleared Debt -->
-    <div class="col-md-3">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@clearedDebt</p>
-                <h6>Cleared Debt</h6>
-            </div>
-        </div>
-    </div>
-
-    <!-- Remaining Debt -->
-    <div class="col-md-3">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <p style="font-size: 3rem; font-family: 'Roboto Flex', sans-serif;">@remainingDebt</p>
-                <h6>Remaining Debt</h6>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- Pending Debts Table -->
 <h4 class="mt-4">Pending Debts</h4>
-
 <table class="table mt-3" style="font-size: 1rem;">
     <thead>
         <tr>
@@ -98,70 +54,193 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var debt in pendingDebts)
+        @if (filteredPendingDebts.Any())
+        {
+            @foreach (var debt in filteredPendingDebts.Select((debt, index) => new { debt, index }))
+            {
+                <tr>
+                    <td>@(debt.index + 1)</td>
+                    <td>@debt.debt.DebtSource</td>
+                    <td>@debt.debt.Amount.ToString("C")</td>
+                    <td>@(debt.debt.DueDate.HasValue ? debt.debt.DueDate.Value.ToString("yyyy-MM-dd") : "N/A")</td>
+                    <td>
+                        <!-- Button to Pay Debt -->
+                        <button class="btn btn-success btn-sm" @onclick="() => OnPayDebtClick(debt.debt)">Pay</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>@debt.SNo</td>
-                <td>@debt.Source</td>
-                <td>@debt.Amount.ToString("C")</td>
-                <td>@(debt.DueDate.HasValue ? debt.DueDate.Value.ToString("yyyy-MM-dd") : "N/A")</td>
-                <td>
-                    <button class="btn btn-primary" disabled>Pay</button>
-                </td>
+                <td colspan="5" class="text-center">No pending debts found for the selected date range.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Top 5 Highest Transactions Table -->
+<h4 class="mt-4">Top 5 Highest Transactions</h4>
+<table class="table mt-3" style="font-size: 1rem;">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (topTransactions.Any())
+        {
+            @foreach (var transaction in topTransactions.Select((t, index) => new { t, index }))
+            {
+                <tr>
+                    <td>@(transaction.index + 1)</td>
+                    <td>@transaction.t.Title</td>
+                    <td>@transaction.t.Amount.ToString("C")</td>
+                    <td>@transaction.t.TransactionType</td>
+                    <td>@transaction.t.Date.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No transactions found.</td>
             </tr>
         }
     </tbody>
 </table>
 
 @code {
-    private decimal totalCredit;
-    private decimal totalDebit;
-    private decimal totalDebt;
-    private decimal totalBalance;
-    private int totalTransactions;
-    private decimal clearedDebt;
-    private decimal remainingDebt;
-    private List<PendingDebt> pendingDebts = new List<PendingDebt>();
+    // Variables for storing dashboard data
+    private List<(string Title, string Value)> dashboardItems = new();
+    private List<Debt> pendingDebts = new();
+    private List<Debt> filteredPendingDebts = new();
+    private List<Transaction> transactions = new();
+    private List<Transaction> topTransactions = new();
+    private DateTime? startDate;
+    private DateTime? endDate;
 
+    // Method for loading data when the page is initialized
     protected override async Task OnInitializedAsync()
     {
-  
-        var transactions = await TransactionService.GetTransactionsAsync();
-        totalCredit = transactions.Where(t => t.TransactionType?.ToLower() == "credit").Sum(t => t.Amount);
-        totalDebit = transactions.Where(t => t.TransactionType?.ToLower() == "debit").Sum(t => t.Amount);
-        totalTransactions = transactions.Count();
-
-        
-        totalBalance = totalCredit - totalDebit;
-
-
-        var debts = await DebtService.GetDebtsAsync();
-        totalDebt = debts.Sum(d => d.Amount);
-
-       
-        clearedDebt = debts.Where(d => d.Status == "Cleared").Sum(d => d.Amount);
-        remainingDebt = totalDebt - clearedDebt;
-
-       
-        pendingDebts = new List<PendingDebt>
-        {
-            new PendingDebt { SNo = 1, Source = "Bank Loan", Amount = 1500.50m, DueDate = DateTime.Now.AddDays(5) },
-            new PendingDebt { SNo = 2, Source = "Credit Card", Amount = 800.75m, DueDate = DateTime.Now.AddDays(10) },
-            new PendingDebt { SNo = 3, Source = "Friend Borrowing", Amount = 200.00m, DueDate = DateTime.Now.AddDays(15) },
-        };
+        await LoadDashboardData();
     }
 
+    // Method for loading dashboard data
+    private async Task LoadDashboardData()
+    {
+        transactions = await TransactionService.GetTransactionsAsync();
+
+        // Retrieve all debts (both pending and cleared)
+        var allDebts = await DebtService.GetDebtsAsync();
+
+        // Calculate the Total Debt, which includes all debts (pending and cleared)
+        decimal totalDebt = allDebts.Sum(d => d.Amount);
+
+        // Calculate Cleared Debt (debts with "Cleared" status)
+        decimal clearedDebt = allDebts.Where(d => d.Status == "Cleared").Sum(d => d.Amount);
+
+        // Remaining Debt (Pending Debt) = Total Debt - Cleared Debt
+        decimal remainingDebt = totalDebt - clearedDebt;
+
+        decimal totalCredit = transactions.Where(t => t.TransactionType?.ToLower() == "credit").Sum(t => t.Amount);
+        decimal totalDebit = transactions.Where(t => t.TransactionType?.ToLower() == "debit").Sum(t => t.Amount);
+        decimal totalBalance = totalCredit - totalDebit;
+
+        // Adding metrics to the dashboard
+        dashboardItems = new List<(string, string)>
+    {
+        ("Total Balance", totalBalance.ToString("C")),
+        ("Total Credit", totalCredit.ToString("C")),
+        ("Total Debit", totalDebit.ToString("C")),
+        ("Total Debt", totalDebt.ToString("C")),  // Total Debt includes all debt history
+
+        ("Cleared Debt", clearedDebt.ToString("C")),
+        ("Remaining Debt", remainingDebt.ToString("C")),
+        ("Total Transactions", transactions.Count.ToString())
+    };
+
+        // Filter pending debts
+        filteredPendingDebts = allDebts.Where(d => d.Status == "Pending").ToList();
+
+        // Get the top 5 highest transactions
+        topTransactions = transactions.OrderByDescending(t => t.Amount).Take(5).ToList();
+    }
+
+    // Error message to display if necessary
+    private string message = string.Empty;
+
+    // Method to handle paying a debt
+    private async Task OnPayDebtClick(Debt debt)
+    {
+        // Check if the user has enough balance to pay the debt
+        if (debt.Amount > transactions.Where(t => t.TransactionType?.ToLower() == "credit").Sum(t => t.Amount) -
+                          transactions.Where(t => t.TransactionType?.ToLower() == "debit").Sum(t => t.Amount))
+        {
+            message = $"Insufficient balance! You need at least {debt.Amount:C} to clear this debt.";
+            StateHasChanged();
+            return;
+        }
+
+        // Create a new transaction for debt payment
+        var debtPaymentTransaction = new Transaction
+            {
+                Title = $"Debt Payment - {debt.DebtSource}",
+                Amount = debt.Amount,
+                TransactionType = "debit",
+                Category = "Debt",
+                Date = DateTime.Now,
+                Note = $"Cleared debt from source: {debt.DebtSource}"
+            };
+
+        await TransactionService.AddTransactionAsync(debtPaymentTransaction);
+
+        // Mark the debt as cleared
+        debt.Status = "Cleared";
+        debt.ClearedDate = DateTime.Now;
+        pendingDebts.Remove(debt);
+        filteredPendingDebts.Remove(debt);
+        await DebtService.UpdateDebtAsync(debt);
+
+        // Show a success message and reload dashboard data
+        await ShowMessageAsync("Payment Successful", $"The debt of {debt.Amount:C} has been successfully cleared.");
+        await LoadDashboardData();
+        StateHasChanged();
+    }
+
+    // Method for filtering by date range
     private void OnFilterByDateClick()
     {
-        
-        Console.WriteLine("Filter by Date clicked");
+        if (startDate.HasValue && endDate.HasValue)
+        {
+            // Filter pending debts by the selected date range
+            filteredPendingDebts = pendingDebts
+                .Where(d => d.DueDate.HasValue && d.DueDate.Value >= startDate.Value && d.DueDate.Value <= endDate.Value)
+                .ToList();
+
+            // Filter top transactions by the selected date range
+            topTransactions = transactions
+                .Where(t => t.Date >= startDate.Value && t.Date <= endDate.Value)
+                .OrderByDescending(t => t.Amount)
+                .Take(5)
+                .ToList();
+        }
+        else
+        {
+            // If no dates are selected, show all pending debts and top transactions
+            filteredPendingDebts = pendingDebts;
+            topTransactions = transactions.OrderByDescending(t => t.Amount).Take(5).ToList();
+        }
+        StateHasChanged();
     }
 
-    private class PendingDebt
+    // Method to show a message (for success or error)
+    private async Task ShowMessageAsync(string title, string message)
     {
-        public int SNo { get; set; }
-        public string Source { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime? DueDate { get; set; }
+        await Task.Run(() => Console.WriteLine($"{title}: {message}"));
     }
 }
