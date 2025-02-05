@@ -1,0 +1,180 @@
+﻿@page "/categories"
+@using PersonalExpensesTracker.Models
+@using PersonalExpensesTracker.Services
+@inject CategoryService CategoryService
+
+<h3>Category Settings</h3>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+
+<div class="d-flex justify-content-between mb-4">
+    <h5>Categories</h5>
+</div>
+
+<div class="category-container">
+    <!-- Expenses Section -->
+    <div class="category-section">
+        <h3>EXPENSES</h3>
+        <ul class="category-list">
+            @if (expenseCategories != null && expenseCategories.Any())
+            {
+                @foreach (var category in expenseCategories)
+                {
+                    <li>@category.CategoryName</li>
+                }
+            }
+            else
+            {
+                <li>No categories available</li>
+            }
+        </ul>
+        <button class="add-category-btn" @onclick="ShowAddCategoryModalExpense">Add New Category</button>
+    </div>
+
+    <!-- Income Section -->
+    <div class="category-section">
+        <h3>INCOME</h3>
+        <ul class="category-list">
+            @if (incomeCategories != null && incomeCategories.Any())
+            {
+                @foreach (var category in incomeCategories)
+                {
+                    <li>@category.CategoryName</li>
+                }
+            }
+            else
+            {
+                <li>No categories available</li>
+            }
+        </ul>
+        <button class="add-category-btn" @onclick="ShowAddCategoryModalIncome">Add New Category</button>
+    </div>
+</div>
+
+<!-- Add Category Modal -->
+@if (showModal)
+{
+    <div class="modal show" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Category</h5>
+                    <button type="button" class="close" @onclick="CloseModal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="categoryName">Category Name</label>
+                        <input type="text" class="form-control" id="categoryName" @bind="newCategoryName" />
+                        @if (string.IsNullOrEmpty(newCategoryName) && categoryType != null)
+                        {
+                            <small class="text-danger">Category name is required.</small>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
+                    <button type="button" class="btn btn-primary" @onclick="AddCategory">Add Category</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool showModal = false;
+    private string newCategoryName;
+    private string categoryType; // To differentiate between "Income" and "Expense" categories
+    private List<Category> expenseCategories;
+    private List<Category> incomeCategories;
+    private string errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Fetch categories from the service
+            expenseCategories = await CategoryService.GetCategoriesByTypeAsync("Expense");
+            incomeCategories = await CategoryService.GetCategoriesByTypeAsync("Income");
+
+            // If there are any issues, display an error message
+            if (expenseCategories == null || incomeCategories == null)
+            {
+                errorMessage = "Error loading categories.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error initializing page: {ex.Message}";
+        }
+    }
+
+    // Show modal for adding a new "Expense" category
+    private void ShowAddCategoryModalExpense()
+    {
+        categoryType = "Expense";
+        newCategoryName = string.Empty;
+        showModal = true;
+    }
+
+    // Show modal for adding a new "Income" category
+    private void ShowAddCategoryModalIncome()
+    {
+        categoryType = "Income";
+        newCategoryName = string.Empty;
+        showModal = true;
+    }
+
+    // Close the modal
+    private void CloseModal()
+    {
+        showModal = false;
+    }
+
+    // Add the category to the selected list
+    private async Task AddCategory()
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(newCategoryName))
+            {
+                errorMessage = "Category name cannot be empty.";
+                return;
+            }
+
+            var newCategory = new Category
+                {
+                    CategoryType = categoryType,
+                    CategoryName = newCategoryName,
+                    DateCreated = DateTime.Now
+                };
+
+            // Save the category using the CategoryService
+            await CategoryService.AddCategoryAsync(newCategory);
+
+            // Reload the categories
+            if (categoryType == "Expense")
+            {
+                expenseCategories = await CategoryService.GetCategoriesByTypeAsync("Expense");
+            }
+            else
+            {
+                incomeCategories = await CategoryService.GetCategoriesByTypeAsync("Income");
+            }
+
+            // Close the modal and reset error message
+            CloseModal();
+            errorMessage = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error adding category: {ex.Message}";
+        }
+    }
+}
