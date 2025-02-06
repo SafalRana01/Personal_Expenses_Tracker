@@ -9,6 +9,7 @@
 <div class="body">
     <div class="login-container">
         <div class="left-panel">
+            <!-- Displaying the title and slogan of the app -->
             <h1 class="tracker-title">Personal Expenses Tracker</h1>
             <p class="slogan">
                 Plan <span>better</span>,<br />
@@ -18,19 +19,27 @@
             <p class="login-prompt">Login to access your dashboard</p>
         </div>
         <div class="right-panel">
+            <!-- Showing the login form title -->
             <h2 class="login-title">Login</h2>
+
+            <!-- Creating a form to handle the login details -->
             <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
+                <!-- Input field for username -->
                 <div class="input-field">
                     <InputText id="username" class="form-control" placeholder="Username" @bind-Value="loginModel.Username" />
                     <i class="icon-user"></i>
                 </div>
+
+                <!-- Input field for password -->
                 <div class="input-field">
                     <InputText id="password" type="password" class="form-control" placeholder="Password" @bind-Value="loginModel.Password" />
                     <i class="icon-lock"></i>
                 </div>
+
+                <!-- Dropdown to select the preferred currency -->
                 <div class="input-field">
                     <select id="currency" class="form-control" @bind="loginModel.PreferredCurrency">
                         <option value="" disabled selected>Preferred Currency</option>
@@ -39,9 +48,12 @@
                         <option value="NPR">NPR</option>
                     </select>
                 </div>
+
+                <!-- Submit button to login -->
                 <button type="submit" class="login-btn">Login</button>
             </EditForm>
 
+            <!-- Showing an error message if the login fails -->
             @if (loginFailed)
             {
                 <div class="alert alert-danger mt-3">
@@ -54,25 +66,24 @@
 
 
 @code {
-    private LoginModel loginModel = new LoginModel();
-    private bool loginFailed = false;
+    private LoginModel loginModel = new LoginModel();  // Preparing to capture login details
+    private bool loginFailed = false;  // Tracking if login has failed
 
+    // Handling the login process when the form is submitted
     private async Task HandleLogin()
     {
-        // Hardcoded username and password validation
+        // Checking if the entered username and password are correct
         if (loginModel.Username == "admin" && loginModel.Password == "password123")
         {
-            // Save the preferred currency in local storage
+            // Saving the preferred currency to local storage
             await LocalStorage.SetItemAsync("preferredCurrency", loginModel.PreferredCurrency);
 
-            // Redirect to the dashboard
+            // Redirecting to the dashboard page after successful login
             Navigation.NavigateTo("/dashboard");
         }
         else
         {
-            loginFailed = true; // Show error if login failed
+            loginFailed = true; // Showing error if login details are incorrect
         }
     }
-
-
 }
