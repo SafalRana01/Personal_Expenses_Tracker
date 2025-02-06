@@ -1,0 +1,44 @@
+
+.text-orange {
+    color: #ff7600;
+}
+
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+    .transactions-table thead {
+        background-color: #ff7600;
+        color: white;
+    }
+
+    .transactions-table th,
+    .transactions-table td {
+        text-align: left;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .transactions-table th {
+        font-weight: bold;
+    }
+
+    .transactions-table tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+.debit-row {
+    color: red; /* Red text color for debit rows */
+}
+
+.credit-row {
+    color: green; /* Green text color for credit rows */
+}
+
+
