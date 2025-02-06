@@ -4,58 +4,101 @@
 @inject TransactionService TransactionService
 
 <div class="d-flex justify-content-between mb-1">
-   
-    <input type="text" class="form-control w-50" placeholder="Search by Title" @bind="searchTitle" />
+    <!-- Search by Title Box with Search Button -->
+    <div class="input-group w-50">
+        <input type="text" class="form-control" placeholder="Search by Title" @bind="searchTitle" />
+        <button class="btn btn-primary" @onclick="OnSearchButtonClicked">Search</button>
+    </div>
 
-    
+    <!-- Filter Dropdown -->
     <select class="form-control w-auto" @bind="selectedFilter" style="background-color: #007bff; color: white;">
         <option value="">Filter by</option>
         <option value="Type">Type</option>
         <option value="Date">Date</option>
         <option value="Category">Category</option>
-        
     </select>
-
-
 </div>
 
+<!-- Displaying filter options based on the selected filter type -->
+@if (selectedFilter == "Type")
+{
+    <div class="d-flex gap-2 mt-2">
+        <select class="form-control w-auto" @bind="selectedType">
+            <option value="">Select Type</option>
+            @foreach (var type in transactions.Select(t => t.TransactionType).Distinct())
+            {
+                <option value="@type">@type</option>
+            }
+        </select>
+        <button class="btn btn-primary" @onclick="OnSearchButtonClicked">Apply</button>
+    </div>
+}
+
+<!-- Filter for Category -->
+@if (selectedFilter == "Category")
+{
+    <div class="d-flex gap-2 mt-2">
+        <select class="form-control w-auto" @bind="selectedCategory">
+            <option value="">Select Category</option>
+            @foreach (var category in transactions.Select(t => t.Category).Distinct())
+            {
+                <option value="@category">@category</option>
+            }
+        </select>
+        <button class="btn btn-primary" @onclick="OnSearchButtonClicked">Apply</button>
+    </div>
+}
+
+<!-- Date Range Filter -->
+@if (selectedFilter == "Date")
+{
+    <div class="d-flex gap-2 mt-2">
+        <input type="date" class="form-control" @bind="startDate" />
+        <input type="date" class="form-control" @bind="endDate" />
+        <button class="btn btn-primary" @onclick="OnSearchButtonClicked">Apply</button>
+    </div>
+}
+
 <div class="border p-3 rounded">
-    
     <div class="d-flex justify-content-between mb-3">
-        <h3>Transaction History</h3>
+        <h3 class="text-orange">Transactions History</h3>
         <div>
-            <button class="btn btn-secondary me-2">Amount</button>
-            <button class="btn btn-secondary">Date</button>
+            <!-- Buttons for sorting by Amount or Date -->
+            <button class="btn btn-secondary me-2" @onclick="SortByAmount">Amount</button>
+            <button class="btn btn-secondary" @onclick="SortByDate">Date</button>
         </div>
     </div>
 
-    @if (transactions == null || transactions.Count == 0)
+    @if (filteredTransactions == null || filteredTransactions.Count == 0)
     {
         <p>No transaction data found.</p>
     }
     else
     {
-        <table class="table mt-3">
+        <table class="transactions-table">
             <thead>
                 <tr>
+                    <th>S.No.</th>
                     <th>Title</th>
-                    <th>Amount</th>
                     <th>Type</th>
                     <th>Category</th>
+                    <th>Amount</th>
                     <th>Date</th>
                     <th>Note</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var transaction in filteredTransactions)
+                <!-- Loop through filtered transactions and display them -->
+                @foreach (var transaction in filteredTransactions.Select((t, index) => new { Transaction = t, Index = index + 1 }))
                 {
-                    <tr>
-                        <td>@transaction.Title</td>
-                        <td>@transaction.Amount</td>
-                        <td>@transaction.TransactionType</td>
-                        <td>@transaction.Category</td>
-                        <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
-                        <td>@transaction.Note</td>
+                    <tr class="@(transaction.Transaction.TransactionType == "Debit" ? "debit-row" : "credit-row")">
+                        <td>@transaction.Index</td>
+                        <td>@transaction.Transaction.Title</td>
+                        <td>@transaction.Transaction.TransactionType</td>
+                        <td>@transaction.Transaction.Category</td>
+                        <td>@transaction.Transaction.Amount</td>
+                        <td>@transaction.Transaction.Date.ToString("yyyy-MM-dd")</td>
+                        <td>@transaction.Transaction.Note</td>
                     </tr>
                 }
             </tbody>
@@ -64,35 +107,60 @@
 </div>
 
 @code {
-    private List<Transaction> transactions;
-    private string searchTitle = "";
-    private string selectedFilter = "";
-    private List<Transaction> filteredTransactions;
+    private List<Transaction> transactions = new List<Transaction>();
+    private List<Transaction> filteredTransactions = new List<Transaction>();
+    private string searchTitle = "";  // Variable to store the search query for title
+    private string selectedFilter = "";  // Selected filter type (Type, Date, Category)
+    private string selectedType = "";  // Selected type for filtering (Credit/Debit)
+    private string selectedCategory = "";  // Selected category for filtering
+    private DateTime? startDate;  // Start date for date range filter
+    private DateTime? endDate;  // End date for date range filter
+    private bool sortByAmountAscending = true;  // Flag to toggle sorting by amount (ascending/descending)
+    private bool sortByDateAscending = true;  // Flag to toggle sorting by date (ascending/descending)
 
+    // Method to fetch transactions when the page loads
     protected override async Task OnInitializedAsync()
     {
         transactions = await TransactionService.GetTransactionsAsync();
-        filteredTransactions = transactions;
+        filteredTransactions = transactions;  // Initially, no filter is applied
     }
 
-    
+    // Method to handle the search button click and apply filters
+    private void OnSearchButtonClicked()
+    {
+        FilterTransactions();  // Apply the filters based on the current selection
+    }
+
+    // Method to filter transactions based on search criteria
     private void FilterTransactions()
     {
         filteredTransactions = transactions
-            .Where(t => (string.IsNullOrEmpty(searchTitle) || t.Title.Contains(searchTitle, StringComparison.OrdinalIgnoreCase)) &&
-                        (string.IsNullOrEmpty(selectedFilter) || t.Category.Equals(selectedFilter, StringComparison.OrdinalIgnoreCase)))
+            .Where(t =>
+                (string.IsNullOrEmpty(searchTitle) || t.Title.Contains(searchTitle, StringComparison.OrdinalIgnoreCase)) &&  // Filter by title
+                (selectedFilter == "Type" ? t.TransactionType == selectedType || string.IsNullOrEmpty(selectedType) : true) &&  // Filter by type
+                (selectedFilter == "Category" ? t.Category == selectedCategory || string.IsNullOrEmpty(selectedCategory) : true) &&  // Filter by category
+                (selectedFilter == "Date" ? (!startDate.HasValue || t.Date >= startDate) && (!endDate.HasValue || t.Date <= endDate) : true)  // Filter by date range
+            )
             .ToList();
     }
 
-   
-    private void OnSearchTitleChanged()
+    // Method to sort transactions by amount
+    private void SortByAmount()
     {
-        FilterTransactions();
+        filteredTransactions = sortByAmountAscending
+            ? filteredTransactions.OrderBy(t => t.Amount).ToList()  // Sort ascending
+            : filteredTransactions.OrderByDescending(t => t.Amount).ToList();  // Sort descending
+
+        sortByAmountAscending = !sortByAmountAscending;  // Toggle the sorting order for next click
     }
 
-    private void OnSelectedFilterChanged()
+    // Method to sort transactions by date
+    private void SortByDate()
     {
-        FilterTransactions();
+        filteredTransactions = sortByDateAscending
+            ? filteredTransactions.OrderBy(t => t.Date).ToList()  // Sort ascending
+            : filteredTransactions.OrderByDescending(t => t.Date).ToList();  // Sort descending
+
+        sortByDateAscending = !sortByDateAscending;  // Toggle the sorting order for next click
     }
 }
-
