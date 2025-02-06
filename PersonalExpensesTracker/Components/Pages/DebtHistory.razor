@@ -2,64 +2,101 @@
 @using PersonalExpensesTracker.Models
 @using PersonalExpensesTracker.Services
 @inject DebtService DebtService
-@inject TransactionService TransactionService
+@inject NavigationManager NavigationManager
 
 <div class="d-flex justify-content-between mb-3">
-    <h3>Debt Transaction History</h3>
+    <!-- Displaying the title and a button to add debt -->
+    <h3 class="text-orange">Debt Transaction History</h3>
     <button class="btn btn-primary" @onclick="OnAddDebtClick">Add Debt</button>
 </div>
 
+<!-- Showing an alert message if there is any -->
+@if (!string.IsNullOrEmpty(alertMessage))
+{
+    <div class="alert alert-warning">@alertMessage</div>
+}
+
+<!-- Checking if there are debts and displaying them in a table -->
 @if (debts != null && debts.Any())
 {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Source</th>
-                    <th>Amount</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach (var debt in debts)
+    <table class="transactions-table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Source</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var debt in debts.Select((d, index) => new { Debt = d, Index = index + 1 }))
             {
-                    <tr>
-                        <td>@(debts.IndexOf(debt) + 1)</td>
-                        <td>@debt.DebtSource</td>
-                        <td>@debt.Amount</td>
-                        <td>
-                        @(debt.DueDate != null && debt.DueDate > DateTime.MinValue
-                                ? debt.DueDate.Value.ToString("dd/MM/yyyy")
-                                : "N/A")
-                        </td>
-                        <td>@debt.Status</td>
-                        <td>
-                            <button class="btn btn-success">Clear</button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@debt.Index</td>
+                    <td>@debt.Debt.DebtSource</td>
+                    <td>@debt.Debt.Amount</td>
+                    <td>
+                        <!-- Showing the formatted due date or "N/A" if unavailable -->
+                        @(debt.Debt.DueDate != null && debt.Debt.DueDate > DateTime.MinValue
+                            ? debt.Debt.DueDate.Value.ToString("dd/MM/yyyy")
+                            : "N/A")
+                    </td>
+                    <td>@debt.Debt.Status</td>
+                    <td>
+                        <!-- Providing an option to clear the debt if it's pending -->
+                        @if (debt.Debt.Status == "Pending")
+                        {
+                            <button class="btn btn-success" @onclick="() => OnClearDebtClick(debt.Debt.Id)">Clear Debt</button>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Cleared</span>
+                        }
+                    </td>
+                </tr>
             }
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 }
 else
 {
-        <p>No debt transactions found.</p>
+    <p>No debt transactions found.</p>
 }
 
 @code {
-    private List<Debt> debts;
+    private List<Debt> debts; // Storing the list of debts
+    private string alertMessage; // Storing any alert message to be shown
 
+    // Fetching the debts when the page is initialized
     protected override async Task OnInitializedAsync()
     {
-        // Fetch debt data on initialization
         debts = await DebtService.GetDebtsAsync();
     }
 
+    // Navigating to the transaction form page when adding a new debt
     private void OnAddDebtClick()
     {
-        // Logic for adding a new debt can be implemented here
-        Console.WriteLine("Add Debt button clicked");
+        NavigationManager.NavigateTo("/transaction");
+    }
+
+    // Clearing the debt when the "Clear Debt" button is clicked
+    private async Task OnClearDebtClick(string debtId)
+    {
+        alertMessage = string.Empty; // Clearing any previous alert message
+
+        // Calling the DebtService to clear the debt
+        var result = await DebtService.ClearDebtAsync(debtId);
+        if (result == "Debt cleared successfully.")
+        {
+            // Refreshing the debt list after successful debt clearing
+            debts = await DebtService.GetDebtsAsync();
+            StateHasChanged(); // Updating the UI to reflect the changes
+        }
+        else
+        {
+            alertMessage = result; // Showing an error message if debt could not be cleared
+        }
     }
 }
