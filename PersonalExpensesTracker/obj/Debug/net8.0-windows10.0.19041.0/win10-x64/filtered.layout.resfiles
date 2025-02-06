@@ -1,8 +1,10 @@
 Components\Layout\MainLayout.razor.css
 Components\Layout\NavMenu.razor.css
 Components\Pages\Categories.razor.css
+Components\Pages\DebtHistory.razor.css
 Components\Pages\Login.razor.css
 Components\Pages\TranscationForm.razor.css
+Components\Pages\TranscationHistory.razor.css
 Data\debts.json
 Data\transaction.json
 OpenSans-Regular.ttf

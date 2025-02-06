@@ -1,0 +1,54 @@
+.text-orange {
+    color: #ff7600;
+}
+
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px; /* Adds more space (60px) to the right side and 40px to the left side */
+    padding: 10px; /* Optional padding inside the table for spacing */
+}
+
+    .transactions-table thead {
+        background-color: #ff7600;
+        color: white;
+    }
+
+    .transactions-table th,
+    .transactions-table td {
+        text-align: left;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .transactions-table th {
+        font-weight: bold;
+    }
+
+    .transactions-table tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    padding: 5px 10px; /* Decrease the padding to reduce button size */
+    font-size: 14px; /* Decrease font size for smaller text */
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+.text-muted {
+    color: #6c757d;
+}
+
+/* Additional padding or margin to the left of the whole content */
+.d-flex {
+    margin: 20px; /* Adds more space (60px) to the right side and 40px to the left side */
+}

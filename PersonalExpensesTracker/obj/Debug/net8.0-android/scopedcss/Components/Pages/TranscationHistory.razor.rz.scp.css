@@ -1,0 +1,44 @@
+
+.text-orange[b-jm5xcwv7im] {
+    color: #ff7600;
+}
+
+.transactions-table[b-jm5xcwv7im] {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+    .transactions-table thead[b-jm5xcwv7im] {
+        background-color: #ff7600;
+        color: white;
+    }
+
+    .transactions-table th[b-jm5xcwv7im],
+    .transactions-table td[b-jm5xcwv7im] {
+        text-align: left;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .transactions-table th[b-jm5xcwv7im] {
+        font-weight: bold;
+    }
+
+    .transactions-table tbody tr:hover[b-jm5xcwv7im] {
+        background-color: #f9f9f9;
+    }
+
+.debit-row[b-jm5xcwv7im] {
+    color: red; /* Red text color for debit rows */
+}
+
+.credit-row[b-jm5xcwv7im] {
+    color: green; /* Green text color for credit rows */
+}
+
+

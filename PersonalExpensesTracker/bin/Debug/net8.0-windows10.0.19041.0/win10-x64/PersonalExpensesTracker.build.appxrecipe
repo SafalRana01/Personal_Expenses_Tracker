@@ -823,11 +823,17 @@
     <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Pages\Categories.razor.css">
       <PackagePath>Components\Pages\Categories.razor.css</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Pages\DebtHistory.razor.css">
+      <PackagePath>Components\Pages\DebtHistory.razor.css</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Pages\Login.razor.css">
       <PackagePath>Components\Pages\Login.razor.css</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Pages\TranscationForm.razor.css">
       <PackagePath>Components\Pages\TranscationForm.razor.css</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Safal\Downloads\Application Development\PersonalExpensesTracker\PersonalExpensesTracker\Components\Pages\TranscationHistory.razor.css">
+      <PackagePath>Components\Pages\TranscationHistory.razor.css</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
